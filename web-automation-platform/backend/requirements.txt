@@ -1,0 +1,33 @@
+# Web端视觉驱动自动化测试平台后端依赖
+
+# Web框架
+fastapi==0.104.1
+uvicorn==0.24.0.post1
+
+# 浏览器控制
+playwright==1.39.0
+
+# 视觉识别
+opencv-python==4.8.1.78
+paddleocr==2.7.0.3
+numpy==1.24.4
+
+# 数据验证
+pydantic==2.5.0
+pydantic-settings==2.1.0
+
+# 工具库
+python-multipart==0.0.6
+requests==2.31.0
+
+# 跨平台支持
+# Windows
+pywin32==306
+# macOS
+# pyobjc-core==10.2
+# pyobjc-framework-Quartz==10.2
+# Linux
+# python-xlib==0.33
+
+# 开发工具
+python-dotenv==1.0.0
