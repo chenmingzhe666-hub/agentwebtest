@@ -1,21 +1,16 @@
 import requests
-import base64
 import json
-
-# 读取测试截图
-with open("test_results/edge_screenshot_20260308_213415.png", "rb") as f:
-    image_data = base64.b64encode(f.read()).decode("utf-8")
 
 # 构建Ollama API请求
 url = "http://localhost:11434/api/generate"
 headers = {"Content-Type": "application/json"}
 
-prompt = "你是一个Web自动化测试专家。请分析以下截图，生成详细的测试步骤。请严格按照以下JSON格式输出测试步骤，不要添加任何其他文本：{\"test_steps\": [{\"action\": \"click\", \"x\": 100, \"y\": 100, \"text\": \"登录按钮\", \"description\": \"点击登录按钮\"}]}"
+# 不使用图像，直接测试文本响应
+prompt = "你是一个Web自动化测试专家。请生成一个测试登录页面的测试步骤。请严格按照以下JSON格式输出测试步骤，不要添加任何其他文本：{\"test_steps\": [{\"action\": \"click\", \"x\": 50, \"y\": 50, \"text\": \"登录按钮\", \"description\": \"点击登录按钮\"}]}"
 
 data = {
     "model": "qwen3-vl:8b",
     "prompt": prompt,
-    "images": [image_data],
     "stream": False,
     "format": "json"
 }
@@ -48,6 +43,8 @@ try:
                     print(f"AI生成了 {len(ai_result['test_steps'])} 个测试步骤")
                     for step in ai_result['test_steps']:
                         print(f"步骤: {step}")
+        except Exception as e:
+            print(f"解析JSON失败: {e}")
     else:
         print("响应中没有thinking字段")
         print(f"完整响应: {result}")
